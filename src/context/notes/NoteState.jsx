@@ -15,7 +15,7 @@ const NoteState = (props) => {
       headers: {
        'Content-Type': 'application/json',
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkYjI5OTBmMGJlZGY1NzI2MmViNTRjIn0sImlhdCI6MTcwODg2MTg4N30.1q5sUU21pb2b8QeFtMybPwtUqmC1j6km00YHAGLrHjc",
+          localStorage.getItem('token'),
       }
     });
     const json =await response.json();
@@ -25,28 +25,17 @@ const NoteState = (props) => {
   // Add a Note
   const addNote = async (title, description, tag) => {
     // API Call
-     // eslint-disable-next-line
     const response = await fetch(`${host}/api/notes/addnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkYjI5OTBmMGJlZGY1NzI2MmViNTRjIn0sImlhdCI6MTcwODg2MTg4N30.1q5sUU21pb2b8QeFtMybPwtUqmC1j6km00YHAGLrHjc",
+          localStorage.getItem('token'),
       },
       body: JSON.stringify({title, description, tag})
   });
-  
-    // client side
-    console.log("Adding a new note");
-    const note = {
-      "_id": "61322f119553781a8ca8d0e08",
-      "user": "6131dc5e3e4037cd4734a0664",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": "2021-09-03T14:20:09.668Z",
-      "__v": 0,
-    };
+
+  const note =await response.json();
     setNotes(notes.concat(note));
   }
 
@@ -58,7 +47,7 @@ const NoteState = (props) => {
       headers: {
        'Content-Type': 'application/json',
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkYjI5OTBmMGJlZGY1NzI2MmViNTRjIn0sImlhdCI6MTcwODg2MTg4N30.1q5sUU21pb2b8QeFtMybPwtUqmC1j6km00YHAGLrHjc",
+          localStorage.getItem('token'),
       }
     });
     const json =await response.json();
@@ -74,27 +63,28 @@ const NoteState = (props) => {
 
     //API call
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkYjI5OTBmMGJlZGY1NzI2MmViNTRjIn0sImlhdCI6MTcwODg2MTg4N30.1q5sUU21pb2b8QeFtMybPwtUqmC1j6km00YHAGLrHjc",
+        localStorage.getItem('token'),
       },
       body: JSON.stringify({title, description, tag}),
     });
-    // eslint-disable-next-line
     const json = await response.json();
+    console.log(json);
 
+    let newNotes = JSON.parse(JSON.stringify(notes))
     // client side
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
       }
     }
-
+    setNotes(newNotes)
   };
 
   return (
