@@ -1,12 +1,9 @@
 
+![image](https://github.com/Sumanth1147/iNotebook-React-MERN/assets/122368378/fcd4f96b-4145-4455-b1b2-1d358b7df769)
 
+![image](https://github.com/Sumanth1147/iNotebook-React-MERN/assets/122368378/d0d2bd8f-782f-4384-bca3-798ded68d849)
 
-
-[Uploading iNotebook UI.wmv…]()
-
-
-
-
+![image](https://github.com/Sumanth1147/iNotebook-React-MERN/assets/122368378/2e063a6c-5355-4af2-a9a3-a94ec57d1493)
 
 
 
